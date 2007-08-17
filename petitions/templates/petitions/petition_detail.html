@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Petitions" %} {% blocktrans with object|title as object_title %}{{ object_title }}{% endblocktrans %}{% endblock %}
+{% block breadcrumb%}<li><a href="/petitions/">{% trans "Petitions" %}</a></li> <li><a href="/petitions/archive/{{ object.pub_date|date:"Y"|lower }}/">{{ object.pub_date|date:"Y"|lower }}</a></li> <li><a href="/petitions/archive/{{ object.pub_date|date:"Y"|lower }}/{{ object.pub_date|date:"M"|lower }}">{{ object.pub_date|date:"F" }}</a></li> <li class="last">{% blocktrans with object|title as object_title %}{{ object_title }}{% endblocktrans %}</li>{% endblock %}
+{% block content %}
+{% blocktrans with object|title as object_title and object.description as object_description %}
+{{ object_title }}
+{{ object_description }}
+{% endblocktrans %}
+{% load iptocountry_filter %}{{ object.ip_address|get_country2:"iptocountry/flags/"}}
+{% trans "Posted on" %} {{ object.pub_date|date:"F j, Y" }} {% trans "by" %} <a href="{{ object.user.get_absolute_url }}">{{ object.user }}</a>
+
+
+{% if not user_signed %}
+{% include "petitions/signature_form.html" %}
+{% endif %}
+
+<ul>
+{% for object in signatures %}
+{% include "petitions/signature_detail.html" %}
+{% endfor %}
+</ul>
+{% endblock %}
