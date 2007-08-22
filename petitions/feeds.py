@@ -8,7 +8,7 @@ class RssFeed(Feed):
     link = "/petitions/" 
     description = _("Petitions")
     def items(self):
-        return Petition.objects.filter(state=settings.STATE_PUBLISHED).order_by('-pub_date')[:5]
+        return Petition.published_objects.all().order_by('-pub_date')[:5]
 
 class AtomFeed(RssFeed):
     feed_type = Atom1Feed

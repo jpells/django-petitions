@@ -23,7 +23,7 @@ urlpatterns = patterns('',
     (r'^atom/$', 'django.contrib.syndication.views.feed', {'feed_dict': feeds, 'url': 'atom'}),
 )
         
-urlpatterns += patterns('common.views.views',
+urlpatterns += patterns('sorted_paginated_authored_archived_list_view.views',
     (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/(?P<day>\w{1,2})/$', 'sorted_paginated_authored_archived_list', petition_dict),
     (r'^(?P<year>\d{4})/(?P<month>[a-z]{3})/$', 'sorted_paginated_authored_archived_list', petition_dict),
     (r'^(?P<year>\d{4})/$', 'sorted_paginated_authored_archived_list',  petition_dict),
@@ -37,5 +37,5 @@ urlpatterns += patterns('django.views.generic.create_update',
 )
 
 urlpatterns += patterns('petitions.views',
-    (r'^(?P<slug>[-\w]+)/$', 'petition_detail', dict(queryset=Petition.objects.filter(state=settings.STATE_PUBLISHED), date_field='pub_date', slug_field='slug')),
+    (r'^(?P<slug>[-\w]+)/$', 'petition_detail', dict(queryset=Petition.published_objects.all(), date_field='pub_date', slug_field='slug')),
 )
