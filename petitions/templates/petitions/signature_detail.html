@@ -3,4 +3,4 @@
 {% trans "Comment" %}: {% blocktrans with object.comment as object_comment %}{{ object_comment }}{% endblocktrans %}
 {% trans "User" %}: <a href="{{ object.user.get_absolute_url }}">{{ object.user }}</a> {% load iptocountry_filter %}{{ object.ip_address|get_country2:"iptocountry/flags/"}}
 {% trans "Posted" %}: {{ object.pub_date|date:"d-M-Y" }}</li>
-<a name="signature_{{ object.id }}" />
+<a name="signature_{{ object.id }}"></a>
