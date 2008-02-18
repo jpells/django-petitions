@@ -1,19 +1,20 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.conf import settings
+from petitions import settings
 from tagging.fields import TagField
 from published_manager.managers import PublishedManager
+from django.utils.translation import ugettext as _
 
 class Petition(models.Model):
     """
     A petition 
     """
-    title = models.CharField(maxlength=255, verbose_name=_("Title"))
+    title = models.CharField(max_length=255, verbose_name=_("Title"))
     slug = models.SlugField(prepopulate_from=('title',), unique=True, verbose_name=_("Slug Field"))
     user = models.ForeignKey(User, verbose_name=_("User"))
     pub_date = models.DateTimeField(auto_now_add=True, verbose_name=_("Date Published"))
     description = models.TextField(verbose_name=_("Description"))
-    state = models.CharField(maxlength=1, choices=settings.STATE_CHOICES, default=settings.STATE_DEFAULT, verbose_name=_("State of object"))
+    state = models.CharField(max_length=1, choices=settings.STATE_CHOICES, default=settings.STATE_DEFAULT, verbose_name=_("State of object"))
     ip_address = models.IPAddressField(verbose_name=_("Author's IP Address"))
     tags = TagField(help_text=_("Enter key terms seperated with a space that you want to associate with this Petition"), verbose_name=_("Tags"))
     objects = models.Manager()
@@ -54,9 +55,9 @@ class Signature(models.Model):
     mod_date = models.DateTimeField(auto_now=True, verbose_name=_("Date Modified"))
     user = models.ForeignKey(User, verbose_name=_("User"))
     petition = models.ForeignKey(Petition, verbose_name=_("Petition"))
-    vote = models.CharField(maxlength=1, choices=settings.PETITION_SIGNATURE_CHOICES, verbose_name=_("Vote"))
+    vote = models.CharField(max_length=1, choices=settings.PETITION_SIGNATURE_CHOICES, verbose_name=_("Vote"))
     comment = models.TextField(verbose_name=_("Comment"))
-    state = models.CharField(maxlength=1, choices=settings.STATE_CHOICES, default=settings.STATE_DEFAULT, verbose_name=_("State of object"))
+    state = models.CharField(max_length=1, choices=settings.STATE_CHOICES, default=settings.STATE_DEFAULT, verbose_name=_("State of object"))
     ip_address = models.IPAddressField(verbose_name=_("Author's IP Address"))
     objects = models.Manager()
     published_objects = PublishedManager()

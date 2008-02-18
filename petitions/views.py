@@ -1,7 +1,7 @@
 from django.views.generic.list_detail import object_detail
 from django.views.generic.create_update import create_object
 from petitions.models import Petition, Signature
-from django.conf import settings
+from petitions import settings
 from django.http import Http404
 from django import newforms as forms
 from django.http import HttpResponseRedirect
