@@ -7,7 +7,7 @@
 {{ object_title }}
 {{ object_description }}
 {% endblocktrans %}
-{% load iptocountry_filter %}{{ object.ip_address|get_country2:"iptocountry/flags/"}}
+{% load iptocountry_flag %}{% get_flag object.ip_address as flag %}<img src="{{ flag.flag_url }}" alt="{{ flag.COUNTRY_NAME|lower }}" />
 {% trans "Posted on" %} {{ object.pub_date|date:"F j, Y" }} {% trans "by" %} <a href="{{ object.user.get_absolute_url }}">{{ object.user }}</a>
 
 

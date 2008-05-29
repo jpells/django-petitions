@@ -1,6 +1,6 @@
 {% load i18n %}
 <li>{% trans "Vote" %}: {% blocktrans with object.vote as object_vote %}{{ object_vote }}{% endblocktrans %}
 {% trans "Comment" %}: {% blocktrans with object.comment as object_comment %}{{ object_comment }}{% endblocktrans %}
-{% trans "User" %}: <a href="{{ object.user.get_absolute_url }}">{{ object.user }}</a> {% load iptocountry_filter %}{{ object.ip_address|get_country2:"iptocountry/flags/"}}
+{% trans "User" %}: <a href="{{ object.user.get_absolute_url }}">{{ object.user }}</a> {% load iptocountry_flag %}{% get_flag object.ip_address as flag %}<img src="{{ flag.flag_url }}" alt="{{ flag.COUNTRY_NAME|lower }}" />
 {% trans "Posted" %}: {{ object.pub_date|date:"d-M-Y" }}</li>
 <a name="signature_{{ object.id }}"></a>
